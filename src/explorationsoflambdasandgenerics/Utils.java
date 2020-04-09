@@ -13,12 +13,20 @@ import java.util.Random;
  * @author Paul
  */
 public class Utils {
-
+    
+    
     /*
     1. write a static method like the one we did in class. call it "repeat" it
     should take 2 parameters, (1) an instance of any type and (2) an int of the
     number of times to repeat said element in an arraylist.
      */
+    public static <T>ArrayList<T> repeat(T x, int repeatTimes){
+        ArrayList<T> ls = new ArrayList();
+        for (int i = 0; i < repeatTimes; i++){
+            ls.add(x);
+        }
+        return ls;
+    }
    
 
     /*
@@ -26,6 +34,17 @@ public class Utils {
     and RETURNS a two line string where the first line is the index of each
     element.
      */
+    public static String indexedOutput(ArrayList list){
+        String concatanatedString = "";
+        for (int i = 0; i < list.size(); i++){
+            concatanatedString = concatanatedString + "\t" + i;
+        }
+        concatanatedString = concatanatedString + "\n";
+        for (int i = 0; i < list.size(); i++){
+            concatanatedString = concatanatedString + "\t" + list.get(i);
+        }
+        return concatanatedString;
+}
    
 
     /*
@@ -45,6 +64,30 @@ public class Utils {
     Here is one you can use:
          assert modifyIntegerXTimes(x -> x + 1, 5, -1) == 4 : "+1 modify test failed";
      */
+    public static Integer modifyIntegerXTimes(IntegerModifier modifier, int timesToApply,Integer startingInt){        
+        Integer value = startingInt;
+        for(int i = 0; i < timesToApply; i++){
+            value=modifier.modify(value);
+        }
+        return value;
+    }
+    public static void modifyIntegerXTimesTester(){
+        assert modifyIntegerXTimes(x -> 1/x, 1, -1) == -1 : "+1 modify test failed";
+        assert modifyIntegerXTimes(x -> x * -1, 5, -1) == 1 : "-1*-1 5 modify test failed";
+        assert modifyIntegerXTimes(x -> x * -1, 4, -1) == -1 : "-1*-1 4 times modify test failed";
+        assert modifyIntegerXTimes(x -> x - -1, 5, -1) == 4 : "- -1  modify test failed";             
+        //assert false : "assertions enabled";
+} 
+    public static Boolean checkInvolutence(IntegerModifier modifier){
+    int x = (int)((Math.random()*100)-50);
+        //System.out.println(x);
+    if (modifier.modify(modifier.modify(x)) == x){     
+        return true;
+    }else{
+    return false;
+    }
+ }
+    
   
 
     /*
@@ -78,6 +121,7 @@ public class Utils {
     Hint 2: You will need to create an interface for each arguement in
     checkInvolutence.
      */
+    
    
 
   
